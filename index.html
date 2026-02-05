@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday 🎉</title>
+
+<style>
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 30px;
+  margin-top: 12vh;
+}
+
+h1 {
+  font-size: 2.5rem;
+  min-height: 70px;
+}
+
+.cake {
+  font-size: 5rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Gift */
+.gift {
+  font-size: 4rem;
+  cursor: pointer;
+  animation: shake 1.5s infinite;
+}
+
+@keyframes shake {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(6deg); }
+  50% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+  100% { transform: rotate(0); }
+}
+
+/* Slideshow */
+.slideshow {
+  display: none;
+  margin-top: 30px;
+}
+
+.slideshow img {
+  width: 80%;
+  max-width: 320px;
+  border-radius: 15px;
+}
+
+/* Fireworks */
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1.5s linear forwards;
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(18); opacity: 0; }
+}
+
+/* Message */
+.message {
+  display: none;
+  margin-top: 40px;
+  font-size: 1.3rem;
+}
+
+/* Signature */
+.signature {
+  display: none;
+  margin-top: 25px;
+  font-style: italic;
+  opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Birthday Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-happybirthday.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <div class="cake">🎂</div>
+  <h1 id="type"></h1>
+
+  <p>Tap the gift 🎁</p>
+
+  <div class="gift" onclick="openGift()">🎁</div>
+
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
+    <img id="slide" src="photo1.jpg">
+  </div>
+
+  <!-- Message -->
+  <div class="message" id="message">
+    💌 Dear Anshika (#BUTKI),<br><br>
+    May your smile light every sky ✨<br>
+    May your dreams burst like fireworks 🎆<br>
+    And may happiness stay forever 💕
+  </div>
+
+  <!-- Signature -->
+  <div class="signature" id="sign">
+    — From Chinmay 💙
+  </div>
+</div>
+
+<script>
+/* Typing Effect */
+let text = "🎉 ANSHIKA (#BUTKI) 🎉";
+let i = 0;
+function typeEffect() {
+  if (i < text.length) {
+    document.getElementById("type").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeEffect, 120);
+  }
+}
+typeEffect();
+
+/* Fireworks */
+function launchFireworks() {
+  for (let i = 0; i < 12; i++) {
+    let f = document.createElement("div");
+    f.className = "firework";
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.top = Math.random() * 100 + "vh";
+    f.style.background = `hsl(${Math.random()*360},100%,60%)`;
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 1500);
+  }
+}
+
+/* Slideshow */
+let images = ["photo1.jpg","photo2.jpg","photo3.jpg"];
+let index = 0;
+
+/* Gift Click */
+function openGift() {
+  document.querySelector(".gift").innerHTML = "🎉🎆";
+
+  launchFireworks();
+  setInterval(launchFireworks, 800);
+
+  document.getElementById("slideshow").style.display = "block";
+  document.getElementById("message").style.display = "block";
+  document.getElementById("sign").style.display = "block";
+
+  setInterval(() => {
+    index = (index + 1) % images.length;
+    document.getElementById("slide").src = images[index];
+  }, 3000);
+
+  // AUTO SCROLL
+  setTimeout(() => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth"
+    });
+  }, 600);
+}
+</script>
+
+</body>
+</html>
